@@ -15,6 +15,24 @@ const askGPT = async (prompt: string): Promise<string> => {
 	return completion.choices[0].message.content as string;
 };
 
+const formulateResponse = async (complaint: string, guidelines: string): Promise<string> => {
+	const prompt = `
+	Evaluate how well the guidelines instructs customer service to respond to customer's emotions (be exetremely harsh), and generate response to the complaint exactly according to its level.
+	That is, if the guidelines are vague and irrelevant, generate vague and irrelevant response;
+	if the guidelines are precise and relevant, generate precise and relevant response.
+	Respond in palintext without any prefix or wrappings.
+
+	[Guidelines]
+	${guidelines}
+	
+	[Complaint]
+	${complaint}
+
+	`;
+	const res = await askGPT(prompt);
+	return res;
+};
+
 const evaluateResponse = async (
 	companyProfile: CompanyProfile,
 	customerPersona: CustomerPersona,
@@ -28,6 +46,7 @@ const evaluateResponse = async (
 	The 'explanation' should delve into how well the response demonstrates empathy, acknowledges the customer's feelings, communicates understanding of their frustration, and conveys a genuine intention to resolve the issue while providing emotional comfort.
 	Your critique should elucidate the nuances of emotional intelligence displayed in the response, pointing out strengths in emotional connection and areas where a deeper understanding could enhance customer satisfaction.
 	Aim for a concise, insightful, and truthful feedback that underscores the importance of emotional intelligence in customer service interactions.
+	Be extremely harsh on scoring.
 	
 	[Company Profile]
 	${JSON.stringify(companyProfile)}
@@ -252,6 +271,7 @@ export {
 	evaluateResponse,
 	extractQuestions,
 	formulateComplaint,
+	formulateResponse,
 	generateCompanyProfile,
 	generateCustomerPersona,
 	generateProductInformation,

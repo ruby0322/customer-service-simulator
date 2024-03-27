@@ -5,8 +5,8 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-	title: 'Do My Homework',
-	description: 'GPT does homework for you!',
+	title: 'Customer Service Simulation',
+	description: 'Beebee poopoo',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

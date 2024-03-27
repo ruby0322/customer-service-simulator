@@ -82,8 +82,8 @@ function CustomerServicePage() {
 					complaint={complaint}
 					fetchComplaint={fetchComplaint}
 					customerName={customerPersona?.name as string}
-					finalResponse={finalResponse}
 					setFinalResponse={setFinalResponse}
+					finalResponse={finalResponse}
 				/>
 			)}
 			{finalResponse && (

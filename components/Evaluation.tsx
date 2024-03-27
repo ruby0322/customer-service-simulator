@@ -29,8 +29,8 @@ function Evaluation({
 				<LoadingButton
 					loading={loading}
 					onClick={onButtonClick}
-					text="Generate Customer Persona"
-					loadingText="Generating Customer Persona"
+					text="Evaluate"
+					loadingText="Evaluating"
 				/>
 			</CustomCard>
 		);

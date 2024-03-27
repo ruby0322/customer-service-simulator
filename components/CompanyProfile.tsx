@@ -41,10 +41,8 @@ function CompanyProfile({
 		setSpice(event.currentTarget.value);
 	};
 	const onButtonClick = () => {
-		if (spice && spice.length > 0) {
-			setLoading(true);
-			fetchCompanyProfile(spice as string);
-		}
+		setLoading(true);
+		fetchCompanyProfile(spice as string);
 	};
 	if (companyProfile === null) {
 		return (

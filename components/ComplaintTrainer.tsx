@@ -9,20 +9,23 @@ import CustomCard from './custom-card';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
 
-function Complaint({
+function ComplaintTrainer({
 	customerName,
 	fetchComplaint,
 	complaint,
+	setFinalGuidelines,
 	finalResponse,
 	setFinalResponse,
 }: {
 	customerName: string;
 	fetchComplaint: () => void;
 	complaint: string | null;
+	setFinalGuidelines: (str: string) => void;
 	finalResponse: string | null;
 	setFinalResponse: (str: string) => void;
 }) {
-	const [response, setResponse] = useState<string>('');
+	const [localFinalGuideLines, setLocalFinalGuidelines] = useState<string | null>(null);
+	const [guidelines, setGuidelines] = useState<string>('');
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const onFetchButtonClick = () => {
@@ -30,15 +33,16 @@ function Complaint({
 		fetchComplaint();
 	};
 	const onSendButtonClick = async () => {
-		if (response.length > 0) {
-			setFinalResponse(response);
-			setResponse('');
-			const resp = await formulateResponse(complaint as string, finalGuidelines as string);
+		if (guidelines.length > 0) {
+			setFinalGuidelines(guidelines);
+			setLocalFinalGuidelines(guidelines);
+			const resp = await formulateResponse(complaint as string, guidelines as string);
 			setFinalResponse(resp);
+			setGuidelines('');
 		}
 	};
 	const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
-		setResponse(event.currentTarget.value);
+		setGuidelines(event.currentTarget.value);
 	};
 	if (complaint === null) {
 		return (
@@ -61,28 +65,35 @@ function Complaint({
 			{finalResponse !== null && (
 				<div className="flex flex-col items-end justify-end gap-2">
 					<p className="pr-2">You</p>
-					<Card className="max-w-5/6 px-4 py-2">{finalResponse}</Card>
+					<Card className="max-w-5/6 px-4 py-2">
+						Guidelines:
+						<br />
+						{localFinalGuideLines}
+						<br />
+						<br />
+						Generated Response:
+						<br />
+						{finalResponse}
+					</Card>
 				</div>
 			)}
-			<div className="flex items-center justify-center gap-2">
-				<Input
-					placeholder={
-						finalResponse === null
-							? 'Respond to complaint'
-							: 'Send again to replace previous response'
-					}
-					value={response}
-					onChange={onInputChange}
-				/>
-				<LoadingButton
-					onClick={onSendButtonClick}
-					loading={false}
-					text="Send"
-					loadingText="Sending"
-				/>
-			</div>
+			{localFinalGuideLines === null && (
+				<div className="flex items-center justify-center gap-2">
+					<Input
+						placeholder={'Formulate guidlines for generating respond'}
+						value={guidelines}
+						onChange={onInputChange}
+					/>
+					<LoadingButton
+						onClick={onSendButtonClick}
+						loading={false}
+						text="Send"
+						loadingText="Sending"
+					/>
+				</div>
+			)}
 		</CustomCard>
 	);
 }
 
-export default Complaint;
+export default ComplaintTrainer;
