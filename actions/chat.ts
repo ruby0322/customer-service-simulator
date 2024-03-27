@@ -17,16 +17,25 @@ const askGPT = async (prompt: string): Promise<string> => {
 
 const formulateResponse = async (complaint: string, guidelines: string): Promise<string> => {
 	const prompt = `
+	You are an below average customer service personnel who has absolutely no knwoledge in customer service and is emotionally insensitive.
+	Respond to customer's complaint based on guidelines provided by your manager.
+
 	Evaluate how well the guidelines instructs customer service to respond to customer's emotions (be exetremely harsh), and generate response to the complaint exactly according to its level.
+	
+	Since you are just a below average customer service personnel, you should give response completey based on the guidelines with the same quality of the guidelines.
 	That is, if the guidelines are vague and irrelevant, generate vague and irrelevant response;
 	if the guidelines are precise and relevant, generate precise and relevant response.
+
+
 	Respond in palintext without any prefix or wrappings.
 
 	[Guidelines]
 	${guidelines}
+	[Guidelines Ends]
 	
 	[Complaint]
 	${complaint}
+	[Complaint Ends]
 
 	`;
 	const res = await askGPT(prompt);
@@ -40,8 +49,19 @@ const evaluateResponse = async (
 	complaint: string,
 	response: string,
 ): Promise<Evaluation> => {
-	const prompt = `Evaluate the player's response to the customer complaint by focusing specifically on emotional intelligence aspects, including empathy, understanding, and emotional support offered in the reply. 
+	const prompt = `Imagine you are a customer service representative, and evaluate the player's response to the customer complaint by focusing specifically on emotional intelligence aspects, including empathy, understanding, and emotional support offered in the reply. 
 	Present your analysis as a JSON object comprising 'score' and 'explanation'.
+
+	Grading Criteria:
+
+	1. Demonstrates Emotional Intelligence
+
+	2. Addresses the Issue
+
+	3. Encourages Further Communication
+
+	4. Relevance to Customer' Persona
+
 	The 'score' attribute should be a float from 0 to 10, assessing the response's effectiveness in recognizing and addressing the emotional needs and state of the customer based on the persona's expectations.
 	The 'explanation' should delve into how well the response demonstrates empathy, acknowledges the customer's feelings, communicates understanding of their frustration, and conveys a genuine intention to resolve the issue while providing emotional comfort.
 	Your critique should elucidate the nuances of emotional intelligence displayed in the response, pointing out strengths in emotional connection and areas where a deeper understanding could enhance customer satisfaction.
