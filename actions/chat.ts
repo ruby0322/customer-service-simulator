@@ -49,12 +49,13 @@ const evaluateResponse = async (
 	complaint: string,
 	response: string,
 ): Promise<Evaluation> => {
-	const prompt = `Imagine you are a customer service representative, and evaluate the player's response to the customer complaint by focusing specifically on emotional intelligence aspects, including empathy, understanding, and emotional support offered in the reply. 
+	const prompt = `
+	Imagine you are a customer service representative, and evaluate the player's response to the customer complaint by focusing specifically on emotional intelligence aspects, including empathy, understanding, and emotional support offered in the reply. 
 	Present your analysis as a JSON object comprising 'score' and 'explanation'.
 
 	Grading Criteria:
 
-	1. Demonstrates Emotional Intelligence
+	1. Demonstrates Emotional Intelligence, including emotional recognition, understanding, management, and connection.
 
 	2. Addresses the Issue
 

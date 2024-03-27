@@ -6,7 +6,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
 	title: 'Customer Service Simulation',
-	description: 'Beebee poopoo',
+	description: 'GPT: Beebee poopoo',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
