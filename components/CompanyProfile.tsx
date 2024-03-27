@@ -19,7 +19,7 @@ function Item({ content }: { content: string }) {
 
 function ProfileSection({ items }: { items: string[] }) {
 	return (
-		<div className="flex min-h-32 items-center justify-center gap-4">
+		<div className="flex min-h-32 flex-wrap items-center justify-center gap-4">
 			{items &&
 				items.map((item, index) => {
 					return <Item content={item} key={`product-${index}-${item}`} />;
