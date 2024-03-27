@@ -2,8 +2,6 @@ import { useState } from 'react';
 
 import { ChatBubbleIcon } from '@radix-ui/react-icons';
 
-import { formulateResponse } from '@/actions/chat';
-
 import LoadingButton from './LoadingButton';
 import CustomCard from './custom-card';
 import { Card } from './ui/card';
@@ -29,12 +27,10 @@ function Complaint({
 		setLoading(true);
 		fetchComplaint();
 	};
-	const onSendButtonClick = async () => {
+	const onSendButtonClick = () => {
 		if (response.length > 0) {
 			setFinalResponse(response);
 			setResponse('');
-			const resp = await formulateResponse(complaint as string, finalGuidelines as string);
-			setFinalResponse(resp);
 		}
 	};
 	const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
