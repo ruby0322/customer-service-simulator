@@ -20,8 +20,9 @@ function Complaint({
 	finalResponse: string | null;
 	setFinalResponse: (str: string) => void;
 }) {
-	const [loading, setLoading] = useState<boolean>(false);
 	const [response, setResponse] = useState<string>('');
+	const [loading, setLoading] = useState<boolean>(false);
+
 	const onFetchButtonClick = () => {
 		setLoading(true);
 		fetchComplaint();

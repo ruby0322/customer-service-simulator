@@ -24,7 +24,7 @@ const evaluateResponse = async (
 ): Promise<Evaluation> => {
 	const prompt = `Evaluate the player's response to the customer complaint by focusing specifically on emotional intelligence aspects, including empathy, understanding, and emotional support offered in the reply. 
 	Present your analysis as a JSON object comprising 'score' and 'explanation'.
-	The 'score' attribute should be a float from 0 to 5, assessing the response's effectiveness in recognizing and addressing the emotional needs and state of the customer based on the persona's expectations.
+	The 'score' attribute should be a float from 0 to 10, assessing the response's effectiveness in recognizing and addressing the emotional needs and state of the customer based on the persona's expectations.
 	The 'explanation' should delve into how well the response demonstrates empathy, acknowledges the customer's feelings, communicates understanding of their frustration, and conveys a genuine intention to resolve the issue while providing emotional comfort.
 	Your critique should elucidate the nuances of emotional intelligence displayed in the response, pointing out strengths in emotional connection and areas where a deeper understanding could enhance customer satisfaction.
 	Aim for a concise, insightful, and truthful feedback that underscores the importance of emotional intelligence in customer service interactions.

@@ -21,6 +21,7 @@ function CustomerServicePage() {
 	const [productInformation, setProductInformation] = useState<ProductInformation | null>(null);
 	const [evaluation, setEvaluation] = useState<Evaluation | null>(null);
 	const [complaint, setComplaint] = useState<string | null>(null);
+
 	const [finalResponse, setFinalResponse] = useState<string | null>(null);
 	const [evaluating, setEvaluating] = useState<boolean>(false);
 	const fetchCompanyProfile = async (spice: string) => {
@@ -87,6 +88,7 @@ function CustomerServicePage() {
 			)}
 			{finalResponse && (
 				<Evaluation
+					finalResponse={finalResponse}
 					evaluating={evaluating}
 					evaluation={evaluation}
 					fetchEvaluation={fetchEvaluation}
