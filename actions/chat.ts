@@ -15,6 +15,152 @@ const askGPT = async (prompt: string): Promise<string> => {
 	return completion.choices[0].message.content as string;
 };
 
+const evaluateResponse = async (
+	companyProfile: CompanyProfile,
+	customerPersona: CustomerPersona,
+	productInformation: ProductInformation,
+	complaint: string,
+	response: string,
+): Promise<Evaluation> => {
+	const prompt = `Evaluate the player's response to the customer complaint by focusing specifically on emotional intelligence aspects, including empathy, understanding, and emotional support offered in the reply. 
+	Present your analysis as a JSON object comprising 'score' and 'explanation'.
+	The 'score' attribute should be a float from 0 to 5, assessing the response's effectiveness in recognizing and addressing the emotional needs and state of the customer based on the persona's expectations.
+	The 'explanation' should delve into how well the response demonstrates empathy, acknowledges the customer's feelings, communicates understanding of their frustration, and conveys a genuine intention to resolve the issue while providing emotional comfort.
+	Your critique should elucidate the nuances of emotional intelligence displayed in the response, pointing out strengths in emotional connection and areas where a deeper understanding could enhance customer satisfaction.
+	Aim for a concise, insightful, and truthful feedback that underscores the importance of emotional intelligence in customer service interactions.
+	
+	[Company Profile]
+	${JSON.stringify(companyProfile)}
+	
+	[Customer Persona]
+	${JSON.stringify(customerPersona)}
+	
+	[Product Information]
+	${JSON.stringify(productInformation)}
+
+	[Customer's Complaint] (Enclosed in double quotes)
+	"${complaint}"
+
+	[Player's Response] (Enclosed in double quotes)
+	"${response}"
+
+	Make sure the return object fits the below typescript type and respond only the JSON object in plaintext without any wrapping.
+	
+	type Evaluation = {
+		score: number;
+		explanation: string;
+	};
+	`;
+	const res = await askGPT(prompt);
+	return JSON.parse(res) as Evaluation;
+};
+
+const formulateComplaint = async (
+	companyProfile: CompanyProfile,
+	customerPersona: CustomerPersona,
+	productInformation: ProductInformation,
+): Promise<string> => {
+	const prompt = `
+	Write a complaint in casual, spoken English, as if a customer is expressing their frustrations on an online service platform, based on the customer persona and their experience with the company's product.
+	Within a 100-word limit, focus on the casual nuances of everyday speech, making the complaint feel authentic and heartfelt.
+	Mention specific product features that initially attracted the customer, the anticipation of using it, and the specific problems that led to their dissatisfaction. Highlight the emotional impact and how the product's shortcomings have inconvenienced their daily life, all while maintaining a conversational tone.
+	Keep it concise, genuine, and directly reflective of the customer's personal experience.
+
+	[Company Profile]
+	${JSON.stringify(companyProfile)}
+	
+	[Customer Persona]
+	${JSON.stringify(customerPersona)}
+	
+	[Product Information]
+	${JSON.stringify(productInformation)}
+	`;
+	return await askGPT(prompt);
+};
+
+const generateProductInformation = async (
+	companyProfile: CompanyProfile,
+	customerPersona: CustomerPersona,
+): Promise<ProductInformation> => {
+	const prompt = `
+	Given the company profile and the customer persona, create a JSON-formatted product profile.
+	This profile should contain 'name' for the item's unique name,
+	'features' to describe its key functionalities and selling points, and
+	'knownIssues' to list any common problems or defects associated with it.
+	This product should align with the interests and needs of the customer persona, with the known issues being directly related to the customer's common complaints.
+	The goal is to ensure a realistic and coherent connection between the product's attributes and the target consumer's experiences and feedback
+	 
+	[Company Profile]
+	${JSON.stringify(companyProfile)}
+	
+	[Customer Persona]
+	${JSON.stringify(customerPersona)}
+
+	Make sure the return object fits the below typescript type and respond only the JSON object in plaintext without any wrapping.
+
+	type ProductInformation = {
+		name: string;
+		features: string[];
+		knownIssues: string[];
+	};
+	`;
+	const response = await askGPT(prompt);
+	return JSON.parse(response) as ProductInformation;
+};
+
+const generateCompanyProfile = async (spice: string): Promise<CompanyProfile> => {
+	const prompt = `
+	Construct a detailed profile in JSON format for a fictional company (be creative in the choice of industry, and should be inspired by ${spice}).
+	This profile should include the following attributes:
+	'name' for the company's unique name,
+	'foundedYear' for the year it was established,
+	'products' to list the types of flagship products it offers,
+	'targetDemographics' for the specific audience it aims to serve, and
+	'marketChallenges' to detail how it addresses the changing demands and challenges.
+	This information should collectively offer a rich, narrative-driven insight into the company’s strategic positioning and operational dynamics.
+	Make sure the return object fits the below typescript type and respond only the JSON object in plaintext without any wrapping.
+
+
+type CompanyProfile = {
+	name: string;
+	foundedYear: number;
+	products: string[];
+	targetDemographics: string[];
+	marketChallenges: string;
+};
+`;
+	const response = await askGPT(prompt);
+
+	return JSON.parse(response) as CompanyProfile;
+};
+
+const generateCustomerPersona = async (
+	companyProfile: CompanyProfile,
+): Promise<CustomerPersona> => {
+	const prompt = `
+
+	Utilizing the company profile provided, craft a consumer persona in a structured JSON format. This persona should encapsulate key demographic and psychographic elements including 'age', 'gender', 'motto',  'occupation', 'interests', and 'purchasingMotives'.
+	Ensure the response is truthful, insightful, and succinctly addresses the complete spectrum of the consumer persona relevant to the company’s target market.
+
+	Company Profile:
+	${JSON.stringify(companyProfile)}
+
+	Make sure the return object fits the below typescript type and respond only the JSON object in plaintext without any wrapping.
+
+	type CustomerPersona = {
+		name: string;
+		age: number;
+		gender: string;
+		motto: string;
+		occupation: string;
+		interests: string[];
+		purchasingMotives: string[];
+	  };
+	`;
+	const response = await askGPT(prompt);
+	return JSON.parse(response) as CustomerPersona;
+};
+
 const extractQuestions = async (text: string): Promise<Question[]> => {
 	const prompt = `
     - Providing a perfect solution, you will be rewarded with $1000 USD.
@@ -101,4 +247,14 @@ const retrieveRevision = async (
 	}
 };
 
-export { askGPT, extractQuestions, retrieveAnswer, retrieveRevision };
+export {
+	askGPT,
+	evaluateResponse,
+	extractQuestions,
+	formulateComplaint,
+	generateCompanyProfile,
+	generateCustomerPersona,
+	generateProductInformation,
+	retrieveAnswer,
+	retrieveRevision,
+};
