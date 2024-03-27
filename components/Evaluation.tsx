@@ -41,7 +41,7 @@ function Evaluation({
 			<div className="flex flex-col gap-6">
 				<div className="flex w-full items-center justify-center gap-4">
 					{evaluation.score} / 10
-					<Progress value={evaluation.score * 20} className="w-2/3" />
+					<Progress value={evaluation.score * 10} className="w-2/3" />
 				</div>
 				<p>{evaluation.explanation}</p>
 			</div>

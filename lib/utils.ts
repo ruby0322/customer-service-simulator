@@ -46,30 +46,4 @@ function intervalToMinutes(interval: string) {
 	return minutes;
 }
 
-function gameToId(game: string) {
-	switch (game) {
-		case 'love':
-			return 0;
-		case 'clubs':
-			return 1;
-		case 'academics':
-			return 2;
-		default:
-			throw new Error(`Invalid game: ${game}`);
-	}
-}
-
-function idToGame(id: number) {
-	switch (id) {
-		case 0:
-			return 'love';
-		case 1:
-			return 'clubs';
-		case 2:
-			return 'academics';
-		default:
-			throw new Error(`Invalid game id: ${id}`);
-	}
-}
-
-export { base64toBlob, cn, intervalToMinutes, gameToId, idToGame };
+export { base64toBlob, cn, intervalToMinutes };
