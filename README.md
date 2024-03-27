@@ -6,7 +6,7 @@ The "Customer Service Game" is a simulation game designed to highlight the impor
 
 This game emphasizes the use of precise prompts to enhance communication effectiveness, teaching players to apply prompt engineering for improved customer interactions and training methodologies. Through engaging in both customer-facing and training roles, participants gain a comprehensive understanding of crafting empathetic, strategic responses, showcasing the pivotal role of prompt engineering in modern customer service practices.
 
-The game is intended for web implementation to automate the workflow and enrich student experiences. (But idk if I have enough time to do so. If not, we can still do it manually.)
+The game is intended for web implementation to automate the workflow and enrich student experiences.
 
 ## Part 1. Customer Service
 
@@ -48,7 +48,7 @@ The game is intended for web implementation to automate the workflow and enrich 
     1. Players score the generated response on a scale from 0 to 5, providing explanations for their scores and suggestions for improvement.
     2. Players evaluate the generated response on a scale from 0 to 5, provide an explanation for their score, and offer suggestions for improvement.
 6. Iterative Improvement
-    1. Steps 3 and 4 are repeated **five (or more, TBD)** times, with each round incorporating feedback and adjustments from the previous one to refine the response strategy. Each time, students adjust the prompt to incorporate the feedback and suggestions from the previous round to refine the response strategy.
+    1. Steps 3 and 4 are repeated five times, with each round incorporating feedback and adjustments from the previous one to refine the response strategy. Each time, students adjust the prompt to incorporate the feedback and suggestions from the previous round to refine the response strategy.
 7. Final Response: A final response is crafted, summarizing the historical guidelines and feedback provided throughout the game.
     1. **Prompt**: "Based on the historical records of guidelines and feedback provided by the customer service trainers, generate a final response to the consumer's complaint."
 8. Evaluation: The effectiveness of the final response is evaluated based on the persona’s expectations, and a score is assigned on a scale from 0 to 5 by GPT.
